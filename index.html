@@ -1,0 +1,70 @@
+<html>
+<head>
+<script>
+function Event(type, target, time){
+  this.type = type;
+  this.target = target;
+  this.time = time;
+  this.toString = function(){
+    return "type:"  + this.type + " , target: " + this.target + " , time: " + this.time;
+  }
+}
+  window.addEventListener("load", function(e){
+    obe = new Event(e.type, e.target, e.timeStamp);
+    localStorage.setItem('load', obe.toString());
+  });
+
+  window.addEventListener("unload", function(e){
+    obe = new Event(e.type, e.target, e.timeStamp);
+    localStorage.setItem('unload', obe.toString());
+  });
+</script>
+</head>
+<body>
+<h1> Learn the English Letters </h1>
+Number of Letters	:
+<input id="1" type="number">
+<input type="submit" value="Generate" id="2">
+<div id="3">
+</div>
+
+<script>
+function randomNumber(min, max){
+    return Math.floor(Math.random() * (max - min)) + min;
+}
+generate = document.getElementById("2");
+generate.addEventListener("click", function(e){
+    alpChr = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+    buttonlist = document.createElement("div");
+    imagelist = document.createElement("div");
+    document.getElementById("3").innerHTML = "";
+    num = document.getElementById("1").value;
+    for(i=0;i<num;i++){
+      ind = randomNumber(0, 26);
+      let alpChrbutton = document.createElement("input");
+      alpChrbutton.setAttribute("type", "submit");
+      alpChrbutton.value = alpChr[ind];
+      let img = document.createElement("img");
+      img.setAttribute("style", "display:none");
+	  
+      img.src = alpChr[ind] + ".jpg";
+      buttonlist.appendChild(alpChrbutton);
+      imagelist.appendChild(img);
+      alpChrbutton.addEventListener("click", function(){
+        for(i = 0; i<imagelist.getElementsByTagName("img").length; i++){
+          imagelist.getElementsByTagName("img")[i].setAttribute("style", "display:none");
+        }
+        img.setAttribute("style", "display:block");
+		obe = new Event(e.type, e.target, e.timeStamp);
+        localStorage.setItem('click', obe.toString());
+      });
+      document.getElementById("3").appendChild(buttonlist);
+      document.getElementById("3").appendChild(imagelist);
+	  
+    }
+    obe = new Event(e.type, e.target, e.timeStamp);
+    localStorage.setItem('click', obe.toString());
+});
+</script>
+</body>
+</html>
